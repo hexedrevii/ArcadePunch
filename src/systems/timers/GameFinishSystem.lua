@@ -1,14 +1,22 @@
 local System = require('lib.Concord.concord.system')
+local resources = require('src.resources')
 
-local GameFinishSystem = System.new({ pool = { 'GameFinish' } })
+local GameFinishSystem = System.new({ pool = { 'GameFinish' }, player = { 'Player' } })
 
 function GameFinishSystem:update(delta)
+  local player = self.player[1].Player
+
   for _, entity in ipairs(self.pool) do
     local finish = entity.GameFinish
     finish.opacity = finish.opacity + delta
     if finish.opacity >= 1 then
       finish.opacity = 1
-      -- TODO: End game scene
+
+      local over = require 'src.worlds.over'
+      over.kills = player.kills
+      over.score = player.score
+
+      resources.worlds:set(over)
     end
   end
 end

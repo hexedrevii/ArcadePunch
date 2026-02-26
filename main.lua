@@ -24,6 +24,7 @@ function love.load()
       :set('hammerUp', love.graphics.newImage('assets/hammer.png'))
       :set('hammerDown', love.graphics.newImage('assets/hammer-down.png'))
       :set('background', love.graphics.newImage('assets/background.png'))
+      :set('backgroundEmpty', love.graphics.newImage('assets/background-empty.png'))
       :set('ticket', love.graphics.newImage('assets/ticket.png'))
       :set('star', love.graphics.newImage('assets/star.png'))
       :set('skull', love.graphics.newImage('assets/skull.png'))
@@ -39,6 +40,7 @@ function love.load()
 
   resources.manager
       :set('fontNormal', love.graphics.newFont('assets/fonts/Pixeled.ttf', 10))
+      :set('fontBig', love.graphics.newFont('assets/fonts/Pixeled.ttf', 20))
 
   resources.worlds:set(game)
 end
