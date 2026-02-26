@@ -1,5 +1,7 @@
 local resources = require 'src.resources'
 local game      = require 'src.worlds.game'
+local scrambler = require 'src.scrambler'
+local json      = require 'lib.json'
 
 local function addKeybinds()
   resources.input:pushKeymap('left', 'a', 'dpleft')
@@ -12,6 +14,11 @@ end
 
 function love.load()
   addKeybinds()
+
+  local data = scrambler:load()
+  if data ~= nil then
+    resources.saveData = json.decode(data)
+  end
 
   resources.manager
       :set('hammerUp', love.graphics.newImage('assets/hammer.png'))
