@@ -1,4 +1,4 @@
----@type [Pattern]
+---@type Pattern[]
 local patterns = {
   {
     type = 'random',
@@ -70,7 +70,7 @@ local patterns = {
 
 ---@class Pattern
 ---@field type 'random'|'coordinated'
----@field enemies [{timeout: number, x: integer?, y: integer?}]
-local _pattern
+---@field enemies {timeout: number, x: integer?, y: integer?}[]
+local _pattern = {}
 
 return patterns

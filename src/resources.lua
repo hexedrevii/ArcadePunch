@@ -18,8 +18,8 @@ local resources = {
 
   saveData = {
     highScore = 0,
-    --timeOut = 40,
-    timeOut = 3,
+    timeOut = 40,
+    --timeOut = 3,
     tickets = 10,
   }
 }
