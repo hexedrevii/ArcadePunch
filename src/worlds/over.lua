@@ -6,6 +6,7 @@ local TextUISystem       = require "src.systems.ui.TextUISystem"
 local UIManagerSystem    = require "src.systems.ui.UIManagerSystem"
 local RetryPressedSystem = require "src.systems.ui.RetryPressedSystem"
 local ScreenShakeSystem  = require "src.systems.ScreenShakeSystem"
+local MenuPressedSystem  = require "src.systems.ui.MenuPressedSystem"
 
 
 local wordPlacer = {
@@ -70,7 +71,7 @@ function over:init()
   scrambler:save(json.encode(resources.saveData))
 
   self.world = World.new()
-  self.world:addSystems(ScreenShakeSystem, RetryPressedSystem, UIManagerSystem, TextUISystem)
+  self.world:addSystems(ScreenShakeSystem, RetryPressedSystem, UIManagerSystem, TextUISystem, MenuPressedSystem)
 
   self.world:newEntity()
       :give('UIManager', 'vertical', 2)

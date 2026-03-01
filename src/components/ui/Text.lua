@@ -1,6 +1,7 @@
 local Component = require 'lib.Concord.concord.component'
 
-Component.new('Text', function(c, text, idle, active, center)
+Component.new('Text', function(c, text, idle, active, center, font)
+  c.font = font
   c.text = text
   c.idle = idle
   c.active = active

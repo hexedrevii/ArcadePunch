@@ -3,13 +3,7 @@ local resources = require "src.resources"
 local World = require 'lib.Concord.concord.world'
 local Entity = require 'lib.Concord.concord.entity'
 
--- Load components
-local Utils = require 'lib.Concord.concord.utils'
-Utils.loadNamespace('src/components')
-Utils.loadNamespace('src/components/ui')
-Utils.loadNamespace('src/components/sprites')
 
--- Load systems, after components or else it freaks out bruh
 local SpriteSystem = require "src.systems.SpriteSystem"
 local PlayerInputSystem = require "src.systems.PlayerInputSystem"
 local SpriteSwitchSystem = require "src.systems.SpriteSwitchSystem"

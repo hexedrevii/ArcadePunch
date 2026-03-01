@@ -8,6 +8,10 @@ function TextUISystem:draw()
     local pos = entity.Position
     local text = entity.Text
 
+    if text.font then
+      love.graphics.setFont(text.font)
+    end
+
     if ui.active then
       love.graphics.setColor(text.active)
     else

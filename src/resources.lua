@@ -21,6 +21,10 @@ local resources = {
     timeOut = 40,
     --timeOut = 3,
     tickets = 10,
+
+    options = {
+      fullscreen = true,
+    }
   }
 }
 
@@ -34,6 +38,10 @@ function resources.playRandomPitch(soundName)
 
   sound:setPitch(resources.randf(1, 1.5))
   sound:play()
+end
+
+function resources:applyOptions()
+  love.window.setFullscreen(self.saveData.options.fullscreen, "desktop")
 end
 
 return resources
