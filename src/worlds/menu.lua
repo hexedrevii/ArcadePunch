@@ -18,6 +18,10 @@ function menu:init()
   self.world:addSystems(ScreenShakeSystem, RetryPressedSystem, UIManagerSystem, TextUISystem, QuitPressedSystem)
 
   self.world:newEntity()
+      :give('Position', 0, 25)
+      :give('Text', 'Arcade Punch!', { 1, 1, 1, 1 }, nil, true, font)
+
+  self.world:newEntity()
       :give('UIManager', 'vertical', 4)
 
   self.world:newEntity()
