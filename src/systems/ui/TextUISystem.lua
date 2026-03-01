@@ -1,10 +1,9 @@
 local System = require 'lib.Concord.concord.system'
 
-local TextUISystem = System.new({ pool = { 'Text', 'Position', 'UI' } })
+local TextUISystem = System.new({ pool = { 'Text', 'Position' } })
 
 function TextUISystem:draw()
   for _, entity in ipairs(self.pool) do
-    local ui = entity.UI
     local pos = entity.Position
     local text = entity.Text
 
@@ -12,8 +11,13 @@ function TextUISystem:draw()
       love.graphics.setFont(text.font)
     end
 
-    if ui.active then
-      love.graphics.setColor(text.active)
+    if entity:has('UI') then
+      local ui = entity.UI
+      if ui.active then
+        love.graphics.setColor(text.active)
+      else
+        love.graphics.setColor(text.idle)
+      end
     else
       love.graphics.setColor(text.idle)
     end
