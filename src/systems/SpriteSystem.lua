@@ -1,5 +1,5 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
 
 local SpriteSystem = System.new({ pool = { 'Sprite', 'Position' } })
 
@@ -8,16 +8,16 @@ function SpriteSystem:draw()
     local sprite = entity.Sprite
     local position = entity.Position
 
-    local ox = resources.sx
-    local oy = resources.sy
+    local ox = Resources.sx
+    local oy = Resources.sy
     if entity:has('Offset') then
       local offset = entity.Offset
       love.graphics.draw(sprite.image,
-        (ox + position.x) * resources.tileSize + offset.x,
-        (oy + position.y) * resources.tileSize + offset.y
+        (ox + position.x) * Resources.tileSize + offset.x,
+        (oy + position.y) * Resources.tileSize + offset.y
       )
     else
-      love.graphics.draw(sprite.image, (ox + position.x) * resources.tileSize, (oy + position.y) * resources.tileSize)
+      love.graphics.draw(sprite.image, (ox + position.x) * Resources.tileSize, (oy + position.y) * Resources.tileSize)
     end
   end
 end

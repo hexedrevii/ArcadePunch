@@ -1,5 +1,5 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
 
 local PlayerInputSystem = System.new({ pool = { 'Position', 'Player', 'Offset' }, camera = { 'Camera' } })
 
@@ -11,23 +11,23 @@ function PlayerInputSystem:update(delta)
     local offset = entity.Offset
     local player = entity.Player
 
-    if resources.input:isPressed('hit') and not entity:has('Timer') then
-      entity:give('SpriteSwitcher', resources.manager:get('hammerDown'))
+    if Resources.Input:isPressed('hit') and not entity:has('Timer') then
+      entity:give('SpriteSwitcher', Resources.Manager:get('hammerDown'))
       entity:give('Timer', 0.1, 'PlayerSpriteSwitch')
       entity:give('Damage', 1, position.x, position.y)
 
       ---@type love.ParticleSystem
-      local dust = resources.manager:get('dust')
+      local dust = Resources.Manager:get('dust')
       local x, y =
-          (resources.sx + position.x) * resources.tileSize + offset.x,
-          (resources.sy + position.y) * resources.tileSize + offset.y
+          (Resources.sx + position.x) * Resources.tileSize + offset.x,
+          (Resources.sy + position.y) * Resources.tileSize + offset.y
 
       dust:setPosition(x + 4, y + 10)
       dust:emit(4)
 
       camera:give('ScreenShake', 0.2, 1)
 
-      resources.playRandomPitch('hit')
+      Resources.playRandomPitch('hit')
     end
 
     if player.moveTimer > 0 then
@@ -37,15 +37,15 @@ function PlayerInputSystem:update(delta)
     if player.moveTimer <= 0 then
       local dx, dy = 0, 0
 
-      if resources.input:isDown('left') then
+      if Resources.Input:isDown('left') then
         dx = -1
-      elseif resources.input:isDown('right') then
+      elseif Resources.Input:isDown('right') then
         dx = 1
       end
 
-      if resources.input:isDown('up') then
+      if Resources.Input:isDown('up') then
         dy = -1
-      elseif resources.input:isDown('down') then
+      elseif Resources.Input:isDown('down') then
         dy = 1
       end
 
@@ -53,8 +53,8 @@ function PlayerInputSystem:update(delta)
         position.x = position.x + dx
         position.y = position.y + dy
 
-        position.x = math.max(1, math.min(resources.cols, position.x))
-        position.y = math.max(1, math.min(resources.rows, position.y))
+        position.x = math.max(1, math.min(Resources.cols, position.x))
+        position.y = math.max(1, math.min(Resources.rows, position.y))
 
         player.moveTimer = player.moveDelay
       else

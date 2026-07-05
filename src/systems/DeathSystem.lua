@@ -1,10 +1,11 @@
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
 local System = require 'lib.Concord.concord.system'
 
 local DeathSystem = System.new({ pool = { 'Dead' }, player = { 'Player' } })
 
 function DeathSystem:update(delta)
   local player = self.player[1].Player
+  if not player then return end
 
   for _, entity in ipairs(self.pool) do
     if entity:has('Drop') then
@@ -14,11 +15,11 @@ function DeathSystem:update(delta)
 
     player.kills = player.kills + 1
     if player.kills ~= 0 and player.kills % 10 == 0 then
-      resources.playRandomPitch('power')
+      Resources.playRandomPitch('power')
     end
 
     entity:destroy()
-    resources.playRandomPitch('death')
+    Resources.playRandomPitch('death')
   end
 end
 

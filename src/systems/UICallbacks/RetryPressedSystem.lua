@@ -1,12 +1,13 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
+
+local Game = require "src.worlds.Game"
 
 local RetryPressedSystem = System.new({ pool = { 'RetryPressed' } })
 
 function RetryPressedSystem:update(delta)
   for _, entity in ipairs(self.pool) do
-    local game = require 'src.worlds.game'
-    resources.worlds:set(game)
+    Resources.Worlds:set(Game)
 
     entity:remove('RetryPressed')
   end

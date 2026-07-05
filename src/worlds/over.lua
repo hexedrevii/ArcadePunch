@@ -1,13 +1,8 @@
-local resources          = require "src.resources"
-local scrambler          = require "src.scrambler"
+local Resources          = require "src.Resources"
+local Scrambler          = require "src.Scrambler"
 local json               = require "lib.json"
 local World              = require "lib.Concord.concord.world"
-local TextUISystem       = require "src.systems.ui.TextUISystem"
-local UIManagerSystem    = require "src.systems.ui.UIManagerSystem"
-local RetryPressedSystem = require "src.systems.ui.RetryPressedSystem"
-local ScreenShakeSystem  = require "src.systems.ScreenShakeSystem"
-local MenuPressedSystem  = require "src.systems.ui.MenuPressedSystem"
-
+local Utils              = require "lib.Concord.concord.utils"
 
 local wordPlacer = {
   words = {}
@@ -36,7 +31,7 @@ end
 
 local function drawWords()
   for _, word in ipairs(wordPlacer.words) do
-    love.graphics.setFont(resources.manager:get('fontNormal'))
+    love.graphics.setFont(Resources.Manager:get('fontNormal'))
 
     if word.draw then
       love.graphics.setColor(word.colour)
@@ -61,17 +56,26 @@ function over:init()
 
   -- 3 tickets per 10 kills!
   local ticketsEarned = math.floor(self.kills / 10) * 3
-  resources.saveData.tickets = resources.saveData.tickets + ticketsEarned
+  Resources.saveData.tickets = Resources.saveData.tickets + ticketsEarned
 
-  if self.score > resources.saveData.highScore then
-    resources.saveData.highScore = self.score
+  if self.score > Resources.saveData.highScore then
+    Resources.saveData.highScore = self.score
     self.newHigh = true
   end
 
-  scrambler:save(json.encode(resources.saveData))
+  Scrambler:save(json.encode(Resources.saveData))
+
+  local Systems = {}
+  Utils.loadNamespace("src/systems", Systems)
 
   self.world = World.new()
-  self.world:addSystems(ScreenShakeSystem, RetryPressedSystem, UIManagerSystem, TextUISystem, MenuPressedSystem)
+  self.world:addSystems(
+    Systems.ScreenShakeSystem,
+    Systems.UICallbacks.RetryPressedSystem,
+    Systems.UICallbacks.UIManagerSystem,
+    Systems.UICallbacks.TextUISystem,
+    Systems.UICallbacks.MenuPressedSystem
+  )
 
   self.world:newEntity()
       :give('UIManager', 'vertical', 2)
@@ -93,9 +97,9 @@ function over:init()
   addWord('You ran out of time!', 0, 10, 0, self.special)
   addWord('Score: ' .. self.score, 0, 50, 0.5, { 1, 1, 1 })
 
-  addWord('High Score: ' .. resources.saveData.highScore, 0, 65, 0.75, { 1, 1, 1 })
+  addWord('High Score: ' .. Resources.saveData.highScore, 0, 65, 0.75, { 1, 1, 1 })
   if self.newHigh then
-    local width = resources.manager:get('fontNormal'):getWidth('High Score: ' .. resources.saveData.highScore)
+    local width = Resources.Manager:get('fontNormal'):getWidth('High Score: ' .. Resources.saveData.highScore)
     addWord('New High!', width - 9, 65, 0.85, self.high)
   end
 
@@ -120,9 +124,9 @@ function over:update(delta)
 end
 
 function over:draw()
-  resources.renderer:set()
+  Resources.Renderer:set()
   love.graphics.clear(1, 1, 1)
-  love.graphics.draw(resources.manager:get('backgroundEmpty'), 0, 0)
+  love.graphics.draw(Resources.Manager:get('backgroundEmpty'), 0, 0)
 
   self.world:emit('draw')
 
@@ -134,7 +138,7 @@ function over:draw()
   love.graphics.rectangle('fill', 0, 0, 320, 180)
 
   love.graphics.setColor(1, 1, 1, 1)
-  resources.renderer:render()
+  Resources.Renderer:render()
 end
 
 return over
