@@ -1,5 +1,5 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
 
 local OverlaySystem = System.new({ pool = { 'Player', 'Position' } })
 
@@ -11,7 +11,7 @@ function OverlaySystem:init()
   self.specialKillColour = { 217 / 255, 87 / 255, 99 / 255 }
 
   self.height = 40
-  self.currentTime = resources.saveData.timeOut
+  self.currentTime = Resources.saveData.timeOut
 
   self.stop = false
 end
@@ -23,7 +23,7 @@ function OverlaySystem:update(delta)
     self.currentTime = self.currentTime - delta
     if self.currentTime <= 0 then
       self.currentTime = 0
-      resources.manager:get('finish'):play()
+      Resources.Manager:get('finish'):play()
 
       entity:give('Timer', 0.75, 'GameFinish')
       self.stop = true
@@ -38,7 +38,7 @@ end
 
 function OverlaySystem:draw()
   ---@type love.Font
-  local font = resources.manager:get('fontNormal')
+  local font = Resources.Manager:get('fontNormal')
 
   for _, entity in ipairs(self.pool) do
     local player = entity.Player
@@ -56,21 +56,21 @@ function OverlaySystem:draw()
     -- Data
     love.graphics.setFont(font)
     love.graphics.setColor(1, 1, 1, 1)
-    love.graphics.draw(resources.manager:get('star'), 3, 145)
+    love.graphics.draw(Resources.Manager:get('star'), 3, 145)
     love.graphics.print('' .. player.score, 15, 133)
 
-    love.graphics.draw(resources.manager:get('ticket'), 3, 163)
+    love.graphics.draw(Resources.Manager:get('ticket'), 3, 163)
     love.graphics.print('' .. player.tickets, 15, 151)
 
     love.graphics.print('Whack o\' Mole!', 100, 142)
 
-    love.graphics.draw(resources.manager:get('clock'), 320 - 12, 145)
+    love.graphics.draw(Resources.Manager:get('clock'), 320 - 12, 145)
 
     local timeLeft = string.format('%.2f', self.currentTime)
     local timeWidth = font:getWidth(timeLeft)
     love.graphics.print(timeLeft, 320 - timeWidth - 15, 133)
 
-    love.graphics.draw(resources.manager:get('skull'), 320 - 14, 163)
+    love.graphics.draw(Resources.Manager:get('skull'), 320 - 14, 163)
 
     if player.kills >= 50 then
       love.graphics.setColor(self.specialKillColour)

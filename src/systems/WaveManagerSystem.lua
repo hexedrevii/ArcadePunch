@@ -1,7 +1,7 @@
 local System = require 'lib.Concord.concord.system'
 local patterns = require 'src.patterns'
-local resources = require 'src.resources'
-local Assemblers = require 'src.assemblers'
+local Resources = require 'src.Resources'
+local Assemblers = require 'src.Assemblers'
 
 local WaveManagerSystem = System.new({ pool = { 'WaveManager' } })
 
@@ -17,7 +17,7 @@ function WaveManagerSystem:update(delta)
       for _, enemy in ipairs(pattern.enemies) do
         local x, y
         if pattern.type == 'random' then
-          x, y = love.math.random(1, resources.sx), love.math.random(1, resources.sy)
+          x, y = love.math.random(1, Resources.sx), love.math.random(1, Resources.sy)
         elseif pattern.type == 'coordinated' then
           x, y = enemy.x, enemy.y
         end

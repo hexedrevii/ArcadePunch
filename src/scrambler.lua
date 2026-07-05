@@ -1,10 +1,10 @@
 local bit = require 'bit'
 
-local scrambler = {
+local Scrambler = {
   key = '67coolkey67'
 }
 
-function scrambler:scramble(text)
+function Scrambler:scramble(text)
   local result = {}
 
   for i = 1, #text do
@@ -18,19 +18,19 @@ function scrambler:scramble(text)
   return table.concat(result)
 end
 
-function scrambler:save(data)
+function Scrambler:save(data)
   local bytes = self:scramble(data)
   love.filesystem.write('save.arc', bytes)
 end
 
-function scrambler:load()
+function Scrambler:load()
   if love.filesystem.getInfo('save.arc') then
     local encrypted = love.filesystem.read('save.arc')
 
-    return scrambler:scramble(encrypted)
+    return Scrambler:scramble(encrypted)
   end
 
   return nil
 end
 
-return scrambler
+return Scrambler

@@ -1,12 +1,13 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
+
+local Menu = require "src.worlds.Menu"
 
 local MenuPressedSystem = System.new({ pool = { 'MenuPressed' } })
 
 function MenuPressedSystem:update(delta)
   for _, entity in ipairs(self.pool) do
-    local menu = require 'src.worlds.menu'
-    resources.worlds:set(menu)
+    Resources.Worlds:set(Menu)
 
     entity:remove('MenuPressed')
   end

@@ -1,4 +1,4 @@
----@class resource_manager
+---@class ResourceManager
 ---@field private resources table<string, any>
 local ResourceManager = {}
 ResourceManager.__index = ResourceManager

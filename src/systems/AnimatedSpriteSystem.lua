@@ -1,5 +1,5 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
 
 local AnimatedSpriteSystem = System.new({ pool = { 'AnimatedSprite', 'Position' } })
 
@@ -52,8 +52,8 @@ function AnimatedSpriteSystem:draw()
 
     local quad = anim.quads[anim.frame]
     local x, y =
-        (resources.sx + position.x) * resources.tileSize,
-        (resources.sy + position.y) * resources.tileSize
+        (Resources.sx + position.x) * Resources.tileSize,
+        (Resources.sy + position.y) * Resources.tileSize
 
     if entity:has('Offset') then
       local offset = entity.Offset

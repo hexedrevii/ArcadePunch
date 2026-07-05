@@ -1,34 +1,31 @@
-local resources = require("src.resources")
-local scrambler = require("src.scrambler")
+local Resources = require("src.Resources")
+local Scrambler = require("src.Scrambler")
 local json = require("lib.json")
 
-local Utils = require 'lib.Concord.concord.utils'
-Utils.loadNamespace('src/components')
-Utils.loadNamespace('src/components/ui')
-Utils.loadNamespace('src/components/sprites')
-
-local menu = require 'src.worlds.menu'
-local game = require("src.worlds.game")
+local Menu = require 'src.worlds.Menu'
 
 local function addKeybinds()
-  resources.input:pushKeymap("left", "a", "dpleft")
-  resources.input:pushKeymap("right", "d", "dpright")
-  resources.input:pushKeymap("up", "w", "dpup")
-  resources.input:pushKeymap("down", "s", "dpdown")
+  Resources.Input:pushKeymap("left", "a", "dpleft")
+  Resources.Input:pushKeymap("right", "d", "dpright")
+  Resources.Input:pushKeymap("up", "w", "dpup")
+  Resources.Input:pushKeymap("down", "s", "dpdown")
 
-  resources.input:pushKeymap("hit", "space", "a")
+  Resources.Input:pushKeymap("hit", "return", "a")
 end
 
 function love.load()
-  addKeybinds()
-  resources:applyOptions()
+  local Utils = require 'lib.Concord.concord.utils'
+  Utils.loadNamespace('src/components')
 
-  local data = scrambler:load()
+  addKeybinds()
+  Resources:applyOptions()
+
+  local data = Scrambler:load()
   if data ~= nil then
-    resources.saveData = json.decode(data)
+    Resources.saveData = json.decode(data)
   end
 
-  resources.manager
+  Resources.Manager
       :set("hammerUp", love.graphics.newImage("assets/hammer.png"))
       :set("hammerDown", love.graphics.newImage("assets/hammer-down.png"))
       :set("background", love.graphics.newImage("assets/background.png"))
@@ -40,39 +37,39 @@ function love.load()
       :set("mole", love.graphics.newImage("assets/mole.png"))
       :set("moleLeave", love.graphics.newImage("assets/mole-leave.png"))
 
-  resources.manager
+  Resources.Manager
       :set("hit", love.audio.newSource("assets/audio/hit.wav", "static"))
       :set("power", love.audio.newSource("assets/audio/powerUp.wav", "static"))
       :set("death", love.audio.newSource("assets/audio/enemy-death.wav", "static"))
       :set("finish", love.audio.newSource("assets/audio/end-whistle.mp3", "static"))
 
-  resources.manager
+  Resources.Manager
       :set("fontNormal", love.graphics.newFont("assets/fonts/Pixeled.ttf", 10))
       :set("fontBig", love.graphics.newFont("assets/fonts/Pixeled.ttf", 20))
 
-  resources.worlds:set(menu)
+  Resources.Worlds:set(Menu)
 end
 
 function love.update(delta)
-  resources.worlds:update(delta)
+  Resources.Worlds:update(delta)
 end
 
 function love.draw()
-  resources.worlds:draw()
+  Resources.Worlds:draw()
 end
 
 function love.keypressed(key)
-  resources.input:keypressed(key)
+  Resources.Input:keypressed(key)
 end
 
 function love.keyreleased(key)
-  resources.input:keyreleased(key)
+  Resources.Input:keyreleased(key)
 end
 
 function love.gamepadpressed(joystick, button)
-  resources.input:gamepadpressed(joystick, button)
+  Resources.Input:gamepadpressed(joystick, button)
 end
 
 function love.gamepadreleased(joystick, button)
-  resources.input:gamepadreleased(joystick, button)
+  Resources.Input:gamepadreleased(joystick, button)
 end

@@ -1,13 +1,13 @@
 local InputManager = require 'lib.marshmallow.input'
 local Renderer = require 'lib.marshmallow.pixelCanvas'
 local WorldController = require 'lib.marshmallow.worldController'
-local ResourceManager = require 'src.resourcemanager'
+local ResourceManager = require 'src.ResourceManager'
 
-local resources = {
-  input = InputManager.new(),
-  renderer = Renderer.new(320, 180),
-  worlds = WorldController.new(),
-  manager = ResourceManager.new(),
+local Resources = {
+  Input = InputManager.new(),
+  Renderer = Renderer.new(320, 180),
+  Worlds = WorldController.new(),
+  Manager = ResourceManager.new(),
 
   cols = 6,
   rows = 3,
@@ -28,20 +28,20 @@ local resources = {
   }
 }
 
-function resources.randf(min, max)
+function Resources.randf(min, max)
   return min + (max - min) * love.math.random()
 end
 
-function resources.playRandomPitch(soundName)
+function Resources.playRandomPitch(soundName)
   ---@type love.Source
-  local sound = resources.manager:get(soundName)
+  local sound = Resources.Manager:get(soundName)
 
-  sound:setPitch(resources.randf(1, 1.5))
+  sound:setPitch(Resources.randf(1, 1.5))
   sound:play()
 end
 
-function resources:applyOptions()
-  love.window.setFullscreen(self.saveData.options.fullscreen, "desktop")
+function Resources:applyOptions()
+  --love.window.setFullscreen(self.saveData.options.fullscreen, "desktop")
 end
 
-return resources
+return Resources

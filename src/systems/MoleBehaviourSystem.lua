@@ -1,5 +1,5 @@
 local System = require 'lib.Concord.concord.system'
-local resources = require 'src.resources'
+local Resources = require 'src.Resources'
 
 local MoleBehaviourSystem = System.new({ pool = { 'MoleBehaviour', 'AnimatedSprite' } })
 
@@ -18,7 +18,7 @@ function MoleBehaviourSystem:update(delta)
         state.state = 'leaving'
 
         entity:remove('AnimatedSprite')
-        entity:give('AnimatedSprite', resources.manager:get('moleLeave'), 16, 16, 0.2, false)
+        entity:give('AnimatedSprite', Resources.Manager:get('moleLeave'), 16, 16, 0.2, false)
       end
     elseif state.state == 'leaving' then
       if anim.finished then
