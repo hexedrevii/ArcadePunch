@@ -17,3 +17,7 @@ Component.new("skull_text")
 Component.new("wave_manager")
 
 Component.new("dead")
+
+Component.new("centered")
+
+Component.new("place_text")

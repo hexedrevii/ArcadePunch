@@ -3,9 +3,11 @@ local Entity                 = require "lib.Concord.concord.entity"
 local Resources              = require "src.Resources"
 local Ending                 = require "src.worlds.Ending"
 
-local GameTimeCallbackSystem = System.new({ pool = { "game_time", "timer_complete" } })
+local GameTimeCallbackSystem = System.new({ pool = { "game_time", "timer_complete" }, data = { "game_data" } })
 
 function GameTimeCallbackSystem:update(delta)
+  local data = self.data[1]
+
   for _, entity in ipairs(self.pool) do
     local world = self:getWorld()
     Entity.new(world)
@@ -15,6 +17,11 @@ function GameTimeCallbackSystem:update(delta)
         :give("fade", 1, false)
         :give("transition", Ending)
         :give("layer", 67)
+
+    if data then
+      Ending.kills = data.game_data.kills
+      Ending.score = data.game_data.score
+    end
 
     entity:remove("timer_complete")
   end

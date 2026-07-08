@@ -24,6 +24,14 @@ Component.new("text", function(c, text, font)
   c.font = font
 end)
 
+Component.new("text_appear", function(c, delay, text, font)
+  c.delay = delay
+  c.timer = 0
+
+  c.text = text
+  c.font = font
+end)
+
 Component.new("colour", function(c, r, g, b, a)
   c.r = r
   c.g = g
