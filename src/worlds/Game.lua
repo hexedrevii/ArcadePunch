@@ -29,6 +29,7 @@ function Game:init()
     Systems.TimerCallbacks.WaveManagerCallbackSystem,
     Systems.TimerSystem,
 
+    Systems.RectangleSystem,
     Systems.ScreenShakeSystem
   )
 
@@ -46,6 +47,7 @@ function Game:init()
   -- Camera (only for shake)
   Entity.new(self.world)
       :give("camera")
+      :give("layer", 99)
 
   -- Player
   Entity.new(self.world)
@@ -55,9 +57,50 @@ function Game:init()
       :give("offset", -4, -1)
       :give("colour", 1, 1, 1, 0.7)
       :give("sprite", Resources.Manager:get("hammerUp"))
-      :give("layer", 2)
+      :give("layer", 3)
       :give("game_data", 0, 0)
       :give("player")
+
+  -- Panels
+  local overlayr, overlayg, overlayb, overlaya = love.math.colorFromBytes(115, 76, 67)
+  local outliner, outlineg, outlineb, outlinea = love.math.colorFromBytes(61, 51, 51)
+  local height = 40
+
+  Entity.new(self.world)
+      :give("position", 0, 180 - height)
+      :give("rectangle", 320, height)
+      :give("fillmode", "fill")
+      :give("colour", overlayr, overlayg, overlayb, overlaya)
+      :give("layer", 1)
+
+  Entity.new(self.world)
+      :give("position", 1, 180 - height + 1)
+      :give("rectangle", 318, height - 2)
+      :give("fillmode", "line")
+      :give("colour", outliner, outlineg, outlineb, outlinea)
+      :give("layer", 1)
+
+  -- Panel sprites
+  Entity.new(self.world)
+      :give("position", 3, 145)
+      :give("sprite", Resources.Manager:get("star"))
+      :give("layer", 2)
+
+  Entity.new(self.world)
+      :give("position", 3, 163)
+      :give("sprite", Resources.Manager:get("ticket"))
+      :give("layer", 2)
+
+  Entity.new(self.world)
+      :give("position", 308, 145)
+      :give("sprite", Resources.Manager:get("clock"))
+      :give("layer", 2)
+
+  Entity.new(self.world)
+      :give("position", 306, 163)
+      :give("sprite", Resources.Manager:get("skull"))
+      :give("layer", 2)
+
 
   self.dust = love.graphics.newParticleSystem(Resources.Manager:get("dust"))
   self.dust:setParticleLifetime(0.4, 0.8)
@@ -83,7 +126,17 @@ end
 function Game:draw()
   Resources.Renderer:set()
   love.graphics.clear(0, 0, 0)
-  self.world:emit("draw")
+
+  local renderQueue = {}
+  self.world:emit("draw", renderQueue)
+  table.sort(renderQueue, function(a, b)
+    return a.layer < b.layer
+  end)
+
+  for _, command in ipairs(renderQueue) do
+    command.draw()
+  end
+
   love.graphics.draw(self.dust, 0, 0)
   Resources.Renderer:render()
 end
