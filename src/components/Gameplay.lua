@@ -19,6 +19,10 @@ Component.new("game_data", function(c, score, kills)
   c.kills = kills or 0
 end)
 
+Component.new("game_time", function(c, timeout)
+  c.timeout = timeout
+end)
+
 Component.new("timer", function(c, timeout, oneshot)
   c.time = timeout
   c.timeout = timeout

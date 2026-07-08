@@ -17,6 +17,11 @@ local Resources       = {
   startX = 6,
   startY = 3,
 
+  saveData = {
+    tickets = 10,
+    timeout = 40.0,
+  },
+
   Manager = ResourceManager.new(),
   Input = Input.new(),
 

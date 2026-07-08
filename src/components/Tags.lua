@@ -10,6 +10,10 @@ Component.new("mole")
 Component.new("mole_enter")
 Component.new("mole_leave")
 
+Component.new("score_text")
+Component.new("time_text")
+Component.new("skull_text")
+
 Component.new("wave_manager")
 
 Component.new("dead")
