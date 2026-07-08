@@ -14,7 +14,6 @@ end
 ---@param name string
 ---@param resource any
 function ResourceManager:add(name, resource)
-  assert(self.resources[name] == nil, 'Resource ' .. name .. ' already exists!')
   self.resources[name] = resource
 
   return self

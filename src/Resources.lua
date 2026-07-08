@@ -10,6 +10,10 @@ local Resources       = {
   cy = 180,
 
   tileSize = 16,
+
+  rows = 2,
+  cols = 5,
+
   startX = 7,
   startY = 4,
 
