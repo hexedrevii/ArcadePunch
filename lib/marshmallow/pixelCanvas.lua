@@ -9,20 +9,20 @@
 ]]
 
 
----@class pixelCanvas
+---@class PixelCanvas
 ---@field w number
 ---@field h number
 ---@field clearColour number[]
 ---@field private __body love.Canvas
-local pixelCanvas = {}
-pixelCanvas.__index = pixelCanvas
+local PixelCanvas = {}
+PixelCanvas.__index = PixelCanvas
 
 ---@param w number
 ---@param h number
 ---@param filter 'nearest'|'linear'?
 ---@param clearColour number[]?
----@return pixelCanvas
-function pixelCanvas.new(w, h, filter, clearColour)
+---@return PixelCanvas
+function PixelCanvas.new(w, h, filter, clearColour)
   filter = filter or 'nearest'
   clearColour = clearColour or { 0, 0, 0 }
 
@@ -36,13 +36,13 @@ function pixelCanvas.new(w, h, filter, clearColour)
 
   c.__body:setFilter(filter, filter)
 
-  return setmetatable(c, pixelCanvas)
+  return setmetatable(c, PixelCanvas)
 end
 
 ---@param sx number?
 ---@param sy number?
 ---@return number
-function pixelCanvas:getScale(sx, sy)
+function PixelCanvas:getScale(sx, sy)
   local screen_x, screen_y = love.graphics.getDimensions()
   if sx then screen_x = sx end
   if sy then screen_y = sy end
@@ -53,7 +53,7 @@ end
 ---@param sx number?
 ---@param sy number?
 ---@return number, number
-function pixelCanvas:getMouseWorld(sx, sy)
+function PixelCanvas:getMouseWorld(sx, sy)
   local mx, my = love.mouse.getPosition()
 
   local scale = self:getScale(sx, sy)
@@ -75,7 +75,7 @@ function pixelCanvas:getMouseWorld(sx, sy)
 end
 
 ---@param stencil boolean?
-function pixelCanvas:set(stencil)
+function PixelCanvas:set(stencil)
   if stencil then
     love.graphics.setCanvas({ self.__body, stencil = true })
   else
@@ -85,7 +85,7 @@ end
 
 ---@param sx number?
 ---@param sy number?
-function pixelCanvas:render(sx, sy)
+function PixelCanvas:render(sx, sy)
   love.graphics.setCanvas()
 
   local scale = self:getScale(sx, sy)
@@ -101,4 +101,4 @@ function pixelCanvas:render(sx, sy)
   love.graphics.draw(self.__body, x, y, 0, scale, scale)
 end
 
-return pixelCanvas
+return PixelCanvas
