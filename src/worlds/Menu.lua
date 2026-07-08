@@ -3,99 +3,97 @@ local Utils = require "lib.Concord.concord.utils"
 local Entity = require "lib.Concord.concord.entity"
 local Resources = require "src.Resources"
 
-local Ending = {
-  score = 0, kills = 0
-}
+local Menu = {}
 
-function Ending:init()
+function Menu:init()
   local Systems = {}
-  Utils.loadNamespace("src/systems", Systems)
 
-  if self.score > Resources.saveData.highScore then
-    Resources.saveData.highScore = self.score
-  end
+  Utils.loadNamespace("src/systems", Systems)
 
   self.world = World.new()
 
   self.world:addSystems(
     Systems.SpriteSystem,
-    Systems.FadeSystem,
-
-    Systems.TransitionSystem,
 
     Systems.TextSystem,
-    Systems.TextAppearSystem,
 
-    Systems.ScreenShakeSystem,
-
-    Systems.TimerSystem,
-    Systems.TimerCallbacks.PlaceTextCallbackSystem,
+    Systems.TransitionSystem,
+    Systems.FadeSystem,
 
     Systems.ButtonManagerSystem,
     Systems.UICallbacks.RetryPressedSystem,
-    Systems.UICallbacks.MainMenuPressedSystem
+    Systems.UICallbacks.QuitPressedSystem
   )
 
   if self.fromTransition then
     Entity.new(self.world)
         :give("position", 0, 0)
+        :give("colour", 0, 0, 0, 1)
         :give("sprite", Resources.Manager:get("backgroundEmpty"))
         :give("fade", 1, true)
         :give("layer", 98)
-        :give("colour", 0, 0, 0, 1)
 
     self.fromTransition = false
   end
 
-  -- Background
   Entity.new(self.world)
       :give("position", 0, 0)
       :give("sprite", Resources.Manager:get("backgroundEmpty"))
       :give("layer", 0)
 
-  -- Camera
-  Entity.new(self.world)
-      :give("camera")
-      :give("layer", 99)
-
-  -- Creates all the text entities after a bit
-  Entity.new(self.world)
-      :give("timer", 0.75, true)
-      :give("place_text")
-
-  -- Data to pass to the text system
-  Entity.new(self.world)
-      :give("game_data", self.score, self.kills)
-
-  -- UI
   local font = Resources.Manager:get("fontNormal")
   Entity.new(self.world)
-      :give("button_manager", "vertical", 2)
+      :give("position", 0, 25)
+      :give("text", "Arcade Punch!", font)
+      :give("centered")
+      :give("colour", 1, 1, 1, 1)
+      :give("layer", 2)
 
   Entity.new(self.world)
-      :give("position", 0, 130)
-      :give("text", "Retry", font)
-      :give("centered")
-      :give("layer", 5)
+      :give("button_manager", "vertical", 4)
+
+  Entity.new(self.world)
+      :give("position", 0, 100)
+      :give("text", "Play", font)
       :give("colour", 1, 1, 1, 1)
+      :give("centered")
+      :give("layer", 1)
       :give("button", 1)
       :give("retry")
 
   Entity.new(self.world)
-      :give("position", 0, 145)
-      :give("text", "Main Menu", font)
-      :give("centered")
-      :give("layer", 5)
+      :give("position", 0, 115)
+      :give("text", "Shop", font)
       :give("colour", 1, 1, 1, 1)
+      :give("centered")
+      :give("layer", 1)
       :give("button", 2)
-      :give("mainmenu")
+      :give("shop")
+
+  Entity.new(self.world)
+      :give("position", 0, 130)
+      :give("text", "Options", font)
+      :give("colour", 1, 1, 1, 1)
+      :give("centered")
+      :give("layer", 1)
+      :give("button", 3)
+      :give("options")
+
+  Entity.new(self.world)
+      :give("position", 0, 145)
+      :give("text", "Quit", font)
+      :give("colour", 1, 1, 1, 1)
+      :give("centered")
+      :give("layer", 1)
+      :give("button", 4)
+      :give("quit")
 end
 
-function Ending:update(delta)
+function Menu:update(delta)
   self.world:emit("update", delta)
 end
 
-function Ending:draw()
+function Menu:draw()
   Resources.Renderer:set()
   love.graphics.clear(0, 0, 0, 0)
 
@@ -112,4 +110,4 @@ function Ending:draw()
   Resources.Renderer:render()
 end
 
-return Ending
+return Menu

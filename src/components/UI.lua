@@ -14,3 +14,6 @@ Component.new("pressed")
 
 Component.new("retry")
 Component.new("mainmenu")
+Component.new("shop")
+Component.new("options")
+Component.new("quit")
