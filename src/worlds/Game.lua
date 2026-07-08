@@ -33,9 +33,13 @@ function Game:init()
     Systems.TimerCallbacks.PunchCallbackSystem,
     Systems.TimerCallbacks.MoleCallbackSystem,
     Systems.TimerCallbacks.WaveManagerCallbackSystem,
+    Systems.TimerCallbacks.GameTimeCallbackSystem,
     Systems.TimerSystem,
 
     Systems.GameTimeSystem,
+    Systems.FadeSystem,
+
+    Systems.TransitionSystem,
 
     Systems.ScreenShakeSystem
   )

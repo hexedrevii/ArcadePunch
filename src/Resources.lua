@@ -19,7 +19,8 @@ local Resources       = {
 
   saveData = {
     tickets = 10,
-    timeout = 40.0,
+    -- timeout = 40.0,
+    timeout = 2.0,
   },
 
   Manager = ResourceManager.new(),
