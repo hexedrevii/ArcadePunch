@@ -1,5 +1,6 @@
 local Resources = require "src.Resources"
 local Game      = require "src.worlds.Game"
+local Menu      = require "src.worlds.Menu"
 
 local function loadKeys()
   Resources.Input:pushKeymap("left", "a", "dpleft")
@@ -38,7 +39,7 @@ function love.load()
       :add("death", love.audio.newSource("assets/audio/enemy-death.wav", "static"))
       :add("finish", love.audio.newSource("assets/audio/end-whistle.mp3", "static"))
 
-  Resources.Worlds:set(Game)
+  Resources.Worlds:set(Menu)
 end
 
 function love.update(delta)
