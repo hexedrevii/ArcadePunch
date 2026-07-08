@@ -21,13 +21,18 @@ function Ending:init()
     Systems.SpriteSystem,
     Systems.FadeSystem,
 
+    Systems.TransitionSystem,
+
     Systems.TextSystem,
     Systems.TextAppearSystem,
 
     Systems.ScreenShakeSystem,
 
     Systems.TimerSystem,
-    Systems.TimerCallbacks.PlaceTextCallbackSystem
+    Systems.TimerCallbacks.PlaceTextCallbackSystem,
+
+    Systems.ButtonManagerSystem,
+    Systems.UICallbacks.RetryPressedSystem
   )
 
   if self.fromTransition then
@@ -37,6 +42,8 @@ function Ending:init()
         :give("fade", 1, true)
         :give("layer", 98)
         :give("colour", 0, 0, 0, 1)
+
+    self.fromTransition = false
   end
 
   -- Background
@@ -58,6 +65,29 @@ function Ending:init()
   -- Data to pass to the text system
   Entity.new(self.world)
       :give("game_data", self.score, self.kills)
+
+  -- UI
+  local font = Resources.Manager:get("fontNormal")
+  Entity.new(self.world)
+      :give("button_manager", "vertical", 2)
+
+  Entity.new(self.world)
+      :give("position", 0, 130)
+      :give("text", "Retry", font)
+      :give("centered")
+      :give("layer", 5)
+      :give("colour", 1, 1, 1, 1)
+      :give("button", 1)
+      :give("retry")
+
+  Entity.new(self.world)
+      :give("position", 0, 145)
+      :give("text", "Main Menu", font)
+      :give("centered")
+      :give("layer", 5)
+      :give("colour", 1, 1, 1, 1)
+      :give("button", 2)
+      :give("mainmenu")
 end
 
 function Ending:update(delta)
