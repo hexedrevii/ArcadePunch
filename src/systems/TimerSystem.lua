@@ -8,7 +8,7 @@ function TimerSystem:update(delta)
 
     timer.time = timer.time - delta
     if timer.time <= 0 then
-      timer.time = timer.timeOut
+      timer.time = timer.timeout
       entity:give("timer_complete")
 
       if timer.oneshot then

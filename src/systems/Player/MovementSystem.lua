@@ -31,8 +31,8 @@ function MovementSystem:update(delta)
         position.x = position.x + dx
         position.y = position.y + dy
 
-        position.x = math.max(0, math.min(Resources.cols, position.x))
-        position.y = math.max(0, math.min(Resources.rows, position.y))
+        position.x = math.max(1, math.min(Resources.cols, position.x))
+        position.y = math.max(1, math.min(Resources.rows, position.y))
 
         timed.timer = timed.delay
       else

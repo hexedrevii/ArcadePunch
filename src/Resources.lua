@@ -11,11 +11,11 @@ local Resources       = {
 
   tileSize = 16,
 
-  rows = 2,
-  cols = 5,
+  rows = 3,
+  cols = 6,
 
-  startX = 7,
-  startY = 4,
+  startX = 6,
+  startY = 3,
 
   Manager = ResourceManager.new(),
   Input = Input.new(),
