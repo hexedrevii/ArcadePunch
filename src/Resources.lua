@@ -9,6 +9,10 @@ local Resources       = {
   cx = 320,
   cy = 180,
 
+  tileSize = 16,
+  startX = 7,
+  startY = 4,
+
   Manager = ResourceManager.new(),
   Input = Input.new(),
 

@@ -15,9 +15,21 @@ function Game:init()
     Systems.SpriteSystem
   )
 
+  -- Background (No longer hardcoded (what the fuck was i thinking))
   Entity.new(self.world)
       :give("position", 0, 0)
       :give("sprite", Resources.Manager:get("background"))
+      :give("layer", 0)
+
+  -- Player
+  Entity.new(self.world)
+      :give("position", 0, 0)
+      :give("grid", Resources.startX, Resources.startY)
+      :give("offset", -4, -1)
+      :give("colour", 1, 1, 1, 0.7)
+      :give("sprite", Resources.Manager:get("hammerUp"))
+      :give("layer", 2)
+      :give("player")
 end
 
 function Game:update(delta)

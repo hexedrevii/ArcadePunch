@@ -1,12 +1,27 @@
 local Component = require "lib.Concord.concord.component"
 
-Component.new("sprite", function (c, image)
+Component.new("sprite", function(c, image)
   c.image = image
 end)
 
-Component.new("colour", function (c, r, g, b, a)
+Component.new("colour", function(c, r, g, b, a)
   c.r = r
   c.g = g
   c.b = b
   c.a = a or 1
+end)
+
+Component.new("offset", function(c, x, y)
+  c.x = x
+  c.y = y
+end)
+
+Component.new("layer", function(c, depth)
+  c.depth = depth
+end)
+
+-- x/y offset to where the thing is drawn!!!
+Component.new("grid", function(c, x, y)
+  c.x = x or 0
+  c.y = y or 0
 end)
