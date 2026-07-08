@@ -39,3 +39,7 @@ Component.new("rectangle", function(c, w, h)
   c.w = w
   c.h = h
 end)
+
+Component.new("transition", function(c, what)
+  c.what = what
+end)

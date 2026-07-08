@@ -49,3 +49,8 @@ Component.new("grid", function(c, x, y)
   c.x = x or 0
   c.y = y or 0
 end)
+
+Component.new("fade", function(c, speed, reverse)
+  c.speed = speed
+  c.reverse = reverse
+end)
