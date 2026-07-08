@@ -44,6 +44,17 @@ function Game:init()
     Systems.ScreenShakeSystem
   )
 
+  if self.fromTransition then
+    Entity.new(self.world)
+        :give("position", 0, 0)
+        :give("colour", 0, 0, 0, 1)
+        :give("sprite", Resources.Manager:get("backgroundEmpty"))
+        :give("fade", 1, true)
+        :give("layer", 98)
+
+    self.fromTransition = false
+  end
+
   -- Background (No longer hardcoded (what the fuck was i thinking))
   Entity.new(self.world)
       :give("position", 0, 0)
