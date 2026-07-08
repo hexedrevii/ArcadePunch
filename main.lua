@@ -1,9 +1,20 @@
 local Resources = require "src.Resources"
 local Game      = require "src.worlds.Game"
 
+local function loadKeys()
+  Resources.Input:pushKeymap("left", "a", "dpleft")
+  Resources.Input:pushKeymap("right", "d", "dpright")
+  Resources.Input:pushKeymap("up", "w", "dpup")
+  Resources.Input:pushKeymap("down", "s", "dpdown")
+
+  Resources.Input:pushKeymap("hit", "space", "a")
+end
+
 function love.load()
   local Utils = require 'lib.Concord.concord.utils'
   Utils.loadNamespace('src/components')
+
+  loadKeys()
 
   Resources.Manager
       :add("hammerUp", love.graphics.newImage("assets/hammer.png"))
@@ -15,6 +26,7 @@ function love.load()
       :add("skull", love.graphics.newImage("assets/skull.png"))
       :add("clock", love.graphics.newImage("assets/clock.png"))
       :add("mole", love.graphics.newImage("assets/mole.png"))
+      :add("dust", love.graphics.newImage("assets/dust.png"))
       :add("moleLeave", love.graphics.newImage("assets/mole-leave.png"))
 
   Resources.Manager

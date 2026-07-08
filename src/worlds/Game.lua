@@ -12,7 +12,16 @@ function Game:init()
   Utils.loadNamespace("src/systems", Systems)
 
   self.world:addSystems(
-    Systems.SpriteSystem
+    Systems.SpriteSystem,
+
+    Systems.Player.MovementSystem,
+    Systems.Player.PunchSystem,
+
+    Systems.TimerCallbacks.PunchCallbackSystem,
+
+    Systems.ScreenShakeSystem,
+
+    Systems.TimerSystem
   )
 
   -- Background (No longer hardcoded (what the fuck was i thinking))
@@ -21,8 +30,12 @@ function Game:init()
       :give("sprite", Resources.Manager:get("background"))
       :give("layer", 0)
 
+  Entity.new(self.world)
+      :give("camera")
+
   -- Player
   Entity.new(self.world)
+      :give("timed_movement", 0.15)
       :give("position", 0, 0)
       :give("grid", Resources.startX, Resources.startY)
       :give("offset", -4, -1)
@@ -30,16 +43,33 @@ function Game:init()
       :give("sprite", Resources.Manager:get("hammerUp"))
       :give("layer", 2)
       :give("player")
+
+  self.dust = love.graphics.newParticleSystem(Resources.Manager:get("dust"))
+  self.dust:setParticleLifetime(0.4, 0.8)
+  self.dust:setSpin(-10, 10)
+  self.dust:setSpeed(80, 120)
+  self.dust:setSpread(math.pi * 2)
+  self.dust:setLinearDamping(3, 6)
+  self.dust:setSizes(1.5, 1.0, 0.0)
+  self.dust:setColors(
+    1, 1, 1, 1,
+    1, 1, 1, 0.5,
+    1, 1, 1, 0
+  )
+
+  Resources.Manager:add("dustParticles", self.dust)
 end
 
 function Game:update(delta)
   self.world:emit("update", delta)
+  self.dust:update(delta)
 end
 
 function Game:draw()
   Resources.Renderer:set()
   love.graphics.clear(0, 0, 0)
   self.world:emit("draw")
+  love.graphics.draw(self.dust, 0, 0)
   Resources.Renderer:render()
 end
 
