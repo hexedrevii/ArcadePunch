@@ -1,7 +1,7 @@
 local System = require "lib.Concord.concord.system"
 local Resources = require "src.Resources"
 
-local MoleCallbackSystem = System.new({ pool = { "mole", "timer_complete", "sprite" } })
+local MoleCallbackSystem = System.new({ pool = { "mole", "timer_complete" } })
 
 function MoleCallbackSystem:update(delta)
   for _, entity in ipairs(self.pool) do

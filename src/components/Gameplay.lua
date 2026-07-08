@@ -6,6 +6,19 @@ Component.new("damage", function(c, damage, x, y)
   c.y = y
 end)
 
+Component.new("health", function(c, hp)
+  c.hp = hp
+end)
+
+Component.new("drop", function(c, score)
+  c.score = score or 25
+end)
+
+Component.new("game_data", function(c, score, kills)
+  c.score = score or 0
+  c.kills = kills or 0
+end)
+
 Component.new("timer", function(c, timeout, oneshot)
   c.time = timeout
   c.timeout = timeout

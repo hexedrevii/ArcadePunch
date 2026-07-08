@@ -13,16 +13,20 @@ function Game:init()
 
   self.world:addSystems(
     Systems.SpriteSystem,
-    Systems.SpriteSheetSystem,
 
+    Systems.SpriteSheetSystem,
     Systems.SpritesheetCallbacks.MoleEnterSystem,
     Systems.SpritesheetCallbacks.MoleLeaveSystem,
 
     Systems.Player.MovementSystem,
     Systems.Player.PunchSystem,
 
+    Systems.DamageSystem,
+    Systems.DeathSystem,
+
     Systems.TimerCallbacks.PunchCallbackSystem,
     Systems.TimerCallbacks.MoleCallbackSystem,
+    Systems.TimerCallbacks.WaveManagerCallbackSystem,
     Systems.TimerSystem,
 
     Systems.ScreenShakeSystem
@@ -34,6 +38,11 @@ function Game:init()
       :give("sprite", Resources.Manager:get("background"))
       :give("layer", 0)
 
+  -- Wave manager
+  Entity.new(self.world)
+      :give("timer", 2, false)
+      :give("wave_manager")
+
   -- Camera (only for shake)
   Entity.new(self.world)
       :give("camera")
@@ -41,12 +50,13 @@ function Game:init()
   -- Player
   Entity.new(self.world)
       :give("timed_movement", 0.15)
-      :give("position", 0, 0)
+      :give("position", 1, 1)
       :give("grid", Resources.startX, Resources.startY)
       :give("offset", -4, -1)
       :give("colour", 1, 1, 1, 0.7)
       :give("sprite", Resources.Manager:get("hammerUp"))
       :give("layer", 2)
+      :give("game_data", 0, 0)
       :give("player")
 
   self.dust = love.graphics.newParticleSystem(Resources.Manager:get("dust"))

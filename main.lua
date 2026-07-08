@@ -7,7 +7,7 @@ local function loadKeys()
   Resources.Input:pushKeymap("up", "w", "dpup")
   Resources.Input:pushKeymap("down", "s", "dpdown")
 
-  Resources.Input:pushKeymap("hit", "space", "a")
+  Resources.Input:pushKeymap("hit", "return", "a")
 end
 
 function love.load()
