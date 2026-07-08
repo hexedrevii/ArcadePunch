@@ -4,6 +4,21 @@ Component.new("sprite", function(c, image)
   c.image = image
 end)
 
+Component.new("spritesheet", function(c, image, w, h, duration, oneshot, tag)
+  c.image = image
+  c.width = w
+  c.height = h
+
+  -- Populated inside the system
+  c.quads = nil
+
+  c.duration = duration
+  c.timer = 0
+
+  c.oneshot = oneshot
+  c.tag = tag
+end)
+
 Component.new("colour", function(c, r, g, b, a)
   c.r = r
   c.g = g

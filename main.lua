@@ -25,8 +25,9 @@ function love.load()
       :add("star", love.graphics.newImage("assets/star.png"))
       :add("skull", love.graphics.newImage("assets/skull.png"))
       :add("clock", love.graphics.newImage("assets/clock.png"))
-      :add("mole", love.graphics.newImage("assets/mole.png"))
       :add("dust", love.graphics.newImage("assets/dust.png"))
+      :add("moleEnter", love.graphics.newImage("assets/mole-enter.png"))
+      :add("moleIdle", love.graphics.newImage("assets/mole-idle.png"))
       :add("moleLeave", love.graphics.newImage("assets/mole-leave.png"))
 
   Resources.Manager
