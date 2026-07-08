@@ -30,3 +30,8 @@ Component.new("shake", function(c, duration, magnitude)
   c.duration = duration
   c.magnitude = magnitude
 end)
+
+Component.new("rectangle", function(c, w, h)
+  c.w = w
+  c.h = h
+end)

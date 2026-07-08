@@ -26,6 +26,10 @@ Component.new("colour", function(c, r, g, b, a)
   c.a = a or 1
 end)
 
+Component.new("fillmode", function(c, mode)
+  c.mode = mode
+end)
+
 Component.new("offset", function(c, x, y)
   c.x = x
   c.y = y
