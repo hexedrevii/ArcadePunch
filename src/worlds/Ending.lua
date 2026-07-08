@@ -1,9 +1,10 @@
-local World = require "lib.Concord.concord.world"
-local Utils = require "lib.Concord.concord.utils"
-local Entity = require "lib.Concord.concord.entity"
+local World     = require "lib.Concord.concord.world"
+local Utils     = require "lib.Concord.concord.utils"
+local Entity    = require "lib.Concord.concord.entity"
 local Resources = require "src.Resources"
+local Saver     = require "src.Saver"
 
-local Ending = {
+local Ending    = {
   score = 0, kills = 0
 }
 
@@ -14,6 +15,11 @@ function Ending:init()
   if self.score > Resources.saveData.highScore then
     Resources.saveData.highScore = self.score
   end
+
+  local ticketsEarned = math.floor(self.kills / 10) * 3
+  Resources.saveData.tickets = Resources.saveData.tickets + ticketsEarned
+
+  Saver.save(Resources.saveData)
 
   self.world = World.new()
 

@@ -1,6 +1,7 @@
 local Resources = require "src.Resources"
 local Game      = require "src.worlds.Game"
 local Menu      = require "src.worlds.Menu"
+local Saver     = require "src.Saver"
 
 local function loadKeys()
   Resources.Input:pushKeymap("left", "a", "dpleft")
@@ -14,6 +15,11 @@ end
 function love.load()
   local Utils = require 'lib.Concord.concord.utils'
   Utils.loadNamespace('src/components')
+
+  local data = Saver.load()
+  if data then
+    Resources.saveData = data
+  end
 
   loadKeys()
 

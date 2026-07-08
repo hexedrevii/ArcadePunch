@@ -10,7 +10,6 @@ function PlaceTextCallbackSystem:update(delta)
 
   for _, entity in ipairs(self.pool) do
     local ticketsEarned = math.floor(data.game_data.kills / 10) * 3
-    Resources.saveData.tickets = Resources.saveData.tickets + ticketsEarned
 
     local world = self:getWorld()
     local sr, sg, sb, sa = love.math.colorFromBytes(217, 87, 99)
