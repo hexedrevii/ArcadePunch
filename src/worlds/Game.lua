@@ -13,6 +13,7 @@ function Game:init()
 
   self.world:addSystems(
     Systems.SpriteSystem,
+    Systems.RectangleSystem,
 
     Systems.SpriteSheetSystem,
     Systems.SpritesheetCallbacks.MoleEnterSystem,
@@ -20,6 +21,11 @@ function Game:init()
 
     Systems.Player.MovementSystem,
     Systems.Player.PunchSystem,
+
+    Systems.TextSystem,
+    Systems.TextUpdate.ScoreTextSystem,
+    Systems.TextUpdate.SkullTextSystem,
+    Systems.TextUpdate.TimeTextSystem,
 
     Systems.DamageSystem,
     Systems.DeathSystem,
@@ -29,7 +35,8 @@ function Game:init()
     Systems.TimerCallbacks.WaveManagerCallbackSystem,
     Systems.TimerSystem,
 
-    Systems.RectangleSystem,
+    Systems.GameTimeSystem,
+
     Systems.ScreenShakeSystem
   )
 
@@ -49,6 +56,11 @@ function Game:init()
       :give("camera")
       :give("layer", 99)
 
+  -- Data holder
+  Entity.new(self.world)
+      :give("game_data", 0, 0)
+      :give("game_time", Resources.saveData.timeout)
+
   -- Player
   Entity.new(self.world)
       :give("timed_movement", 0.15)
@@ -58,7 +70,6 @@ function Game:init()
       :give("colour", 1, 1, 1, 0.7)
       :give("sprite", Resources.Manager:get("hammerUp"))
       :give("layer", 3)
-      :give("game_data", 0, 0)
       :give("player")
 
   -- Panels
@@ -78,29 +89,71 @@ function Game:init()
       :give("rectangle", 318, height - 2)
       :give("fillmode", "line")
       :give("colour", outliner, outlineg, outlineb, outlinea)
-      :give("layer", 1)
+      :give("layer", 2)
 
   -- Panel sprites
   Entity.new(self.world)
       :give("position", 3, 145)
       :give("sprite", Resources.Manager:get("star"))
-      :give("layer", 2)
+      :give("layer", 3)
 
   Entity.new(self.world)
       :give("position", 3, 163)
       :give("sprite", Resources.Manager:get("ticket"))
-      :give("layer", 2)
+      :give("layer", 3)
 
   Entity.new(self.world)
       :give("position", 308, 145)
       :give("sprite", Resources.Manager:get("clock"))
-      :give("layer", 2)
+      :give("layer", 3)
 
   Entity.new(self.world)
       :give("position", 306, 163)
       :give("sprite", Resources.Manager:get("skull"))
-      :give("layer", 2)
+      :give("layer", 3)
 
+  -- Panel text
+  local font = Resources.Manager:get("fontNormal")
+  Entity.new(self.world)
+      :give("position", 100, 142)
+      :give("text", "Whack O' Mole!", font)
+      :give("colour", 1, 1, 1, 1)
+      :give("layer", 4)
+
+  -- Score
+  Entity.new(self.world)
+      :give("position", 15, 133)
+      :give("text", "0", font)
+      :give("colour", 1, 1, 1, 1)
+      :give("score_text")
+      :give("layer", 4)
+
+  -- Tickets
+  Entity.new(self.world)
+      :give("position", 15, 151)
+      :give("text", tostring(Resources.saveData.tickets), font)
+      :give("colour", 1, 1, 1, 1)
+      :give("layer", 4)
+
+  -- Time
+  local time = string.format("%.2f", Resources.saveData.timeout)
+  local timeWidth = font:getWidth(time)
+  Entity.new(self.world)
+      :give("position", Resources.cx - timeWidth - 15, 133)
+      :give("text", time, font)
+      :give("colour", 1, 1, 1, 1)
+      :give("time_text")
+      :give("layer", 4)
+
+  -- Kills
+  local kills = "0"
+  local killsWidth = font:getWidth(kills)
+  Entity.new(self.world)
+      :give("position", Resources.cx - killsWidth - 15, 151)
+      :give("text", kills, font)
+      :give("colour", 1, 1, 1, 1)
+      :give("skull_text")
+      :give("layer", 4)
 
   self.dust = love.graphics.newParticleSystem(Resources.Manager:get("dust"))
   self.dust:setParticleLifetime(0.4, 0.8)

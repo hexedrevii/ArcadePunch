@@ -19,6 +19,11 @@ Component.new("spritesheet", function(c, image, w, h, duration, oneshot, tag)
   c.tag = tag
 end)
 
+Component.new("text", function(c, text, font)
+  c.text = text
+  c.font = font
+end)
+
 Component.new("colour", function(c, r, g, b, a)
   c.r = r
   c.g = g

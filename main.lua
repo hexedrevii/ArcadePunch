@@ -16,6 +16,8 @@ function love.load()
 
   loadKeys()
 
+  Resources.Manager:add("fontNormal", love.graphics.newFont("assets/fonts/Pixeled.ttf", 10))
+
   Resources.Manager
       :add("hammerUp", love.graphics.newImage("assets/hammer.png"))
       :add("hammerDown", love.graphics.newImage("assets/hammer-down.png"))

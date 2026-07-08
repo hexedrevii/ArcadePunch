@@ -1,9 +1,9 @@
 local System = require "lib.Concord.concord.system"
 
-local DeathSystem = System.new({ pool = { "dead" }, datas = { "game_data" } })
+local DeathSystem = System.new({ pool = { "dead" }, data = { "game_data" } })
 
 function DeathSystem:update(delta)
-  local data = self.datas[1]
+  local data = self.data[1]
 
   for _, entity in ipairs(self.pool) do
     if data then
