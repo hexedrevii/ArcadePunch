@@ -2,5 +2,5 @@
 function love.conf(conf)
   conf.window.resizable = true
   conf.console = true
-  conf.identity = 'arcade_saves'
+  conf.identity = 'HexedRevii_ArcadePunch'
 end
