@@ -13,15 +13,19 @@ function Game:init()
 
   self.world:addSystems(
     Systems.SpriteSystem,
+    Systems.SpriteSheetSystem,
+
+    Systems.SpritesheetCallbacks.MoleEnterSystem,
+    Systems.SpritesheetCallbacks.MoleLeaveSystem,
 
     Systems.Player.MovementSystem,
     Systems.Player.PunchSystem,
 
     Systems.TimerCallbacks.PunchCallbackSystem,
+    Systems.TimerCallbacks.MoleCallbackSystem,
+    Systems.TimerSystem,
 
-    Systems.ScreenShakeSystem,
-
-    Systems.TimerSystem
+    Systems.ScreenShakeSystem
   )
 
   -- Background (No longer hardcoded (what the fuck was i thinking))
@@ -30,6 +34,7 @@ function Game:init()
       :give("sprite", Resources.Manager:get("background"))
       :give("layer", 0)
 
+  -- Camera (only for shake)
   Entity.new(self.world)
       :give("camera")
 

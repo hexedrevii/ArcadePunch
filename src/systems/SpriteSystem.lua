@@ -29,14 +29,24 @@ function SpriteSystem:draw()
       love.graphics.setColor(entity.colour.r, entity.colour.g, entity.colour.b, entity.colour.a)
     end
 
-    love.graphics.draw(
-      entity.sprite.image,
-      x, y,
-      nil, nil, nil,
-      entity:has("offset") and entity.offset.x or nil,
-      entity:has("offset") and entity.offset.y or nil
-    )
-
+    if entity:has("spritesheet") and entity.spritesheet.quad then
+      love.graphics.draw(
+        entity.sprite.image,
+        entity.spritesheet.quad,
+        x, y,
+        nil, nil, nil,
+        entity:has("offset") and entity.offset.x or nil,
+        entity:has("offset") and entity.offset.y or nil
+      )
+    else
+      love.graphics.draw(
+        entity.sprite.image,
+        x, y,
+        nil, nil, nil,
+        entity:has("offset") and entity.offset.x or nil,
+        entity:has("offset") and entity.offset.y or nil
+      )
+    end
     love.graphics.setColor(1, 1, 1, 1)
   end
 end
