@@ -7,6 +7,8 @@ local mathx           = require "lib.marshmallow.mathx"
 local Resources       = {
   Renderer = PixelCanvas.new(320, 180),
 
+  showTouch = false,
+
   cx = 320,
   cy = 180,
 
@@ -19,6 +21,8 @@ local Resources       = {
   startY = 3,
 
   saveData = {
+    version = 1,
+
     options = {
       fullscreen = false,
       audio = true,
@@ -36,6 +40,12 @@ local Resources       = {
 
   Worlds = Controller.new()
 }
+
+function Resources.isMobile()
+  local os = love.system.getOS()
+
+  return os == "Android" or os == "iOS"
+end
 
 ---@param name string The resource name of the audio
 ---@param randomPitch boolean?

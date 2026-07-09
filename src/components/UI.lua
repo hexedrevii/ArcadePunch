@@ -10,6 +10,11 @@ Component.new("button_manager", function(c, direction, indices)
   c.active = 1
 end)
 
+Component.new("virtual_button", function (c, name)
+  c.name = name
+	c.down = false
+end)
+
 Component.new("pressed")
 
 Component.new("retry")

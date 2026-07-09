@@ -39,7 +39,8 @@ function Ending:init()
 
     Systems.ButtonManagerSystem,
     Systems.UICallbacks.RetryPressedSystem,
-    Systems.UICallbacks.MainMenuPressedSystem
+    Systems.UICallbacks.MainMenuPressedSystem,
+    Systems.VirtualButtonSystem
   )
 
   if self.fromTransition then
@@ -51,6 +52,48 @@ function Ending:init()
         :give("colour", 0, 0, 0, 1)
 
     self.fromTransition = false
+  end
+
+  if Resources.isMobile() or Resources.showTouch then
+    Entity.new(self.world)
+        :give("position", 40, 90)
+        :give("virtual_button", "vup")
+        :give("rectangle", 32, 32)
+        :give("colour", 1, 1, 1, 0.4)
+        :give("sprite", Resources.Manager:get("up"))
+        :give("layer", 97)
+
+    Entity.new(self.world)
+        :give("position", 40, 140)
+        :give("virtual_button", "vdown")
+        :give("rectangle", 32, 32)
+        :give("colour", 1, 1, 1, 0.4)
+        :give("sprite", Resources.Manager:get("down"))
+        :give("layer", 97)
+
+    Entity.new(self.world)
+        :give("position", 10, 115)
+        :give("virtual_button", "vleft")
+        :give("rectangle", 32, 32)
+        :give("colour", 1, 1, 1, 0.4)
+        :give("sprite", Resources.Manager:get("left"))
+        :give("layer", 97)
+
+    Entity.new(self.world)
+        :give("position", 70, 115)
+        :give("virtual_button", "vright")
+        :give("rectangle", 32, 32)
+        :give("colour", 1, 1, 1, 0.4)
+        :give("sprite", Resources.Manager:get("right"))
+        :give("layer", 97)
+
+    Entity.new(self.world)
+        :give("position", 270, 115)
+        :give("virtual_button", "vhit")
+        :give("rectangle", 32, 32)
+        :give("colour", 1, 1, 1, 0.4)
+        :give("sprite", Resources.Manager:get("action"))
+        :give("layer", 97)
   end
 
   -- Background
