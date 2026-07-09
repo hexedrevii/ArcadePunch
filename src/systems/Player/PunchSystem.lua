@@ -29,6 +29,8 @@ function PunchSystem:update(delta)
       if camera then
         camera:give("shake", 0.2, 1)
       end
+
+      Resources.playAudio("hit", true)
     end
   end
 end

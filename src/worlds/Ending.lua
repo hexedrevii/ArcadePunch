@@ -59,10 +59,12 @@ function Ending:init()
       :give("sprite", Resources.Manager:get("backgroundEmpty"))
       :give("layer", 0)
 
-  -- Camera
-  Entity.new(self.world)
-      :give("camera")
-      :give("layer", 99)
+  if Resources.saveData.options.shake then
+    -- Camera
+    Entity.new(self.world)
+        :give("camera")
+        :give("layer", 99)
+  end
 
   -- Creates all the text entities after a bit
   Entity.new(self.world)
