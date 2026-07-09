@@ -52,9 +52,11 @@ end
 
 ---@param sx number?
 ---@param sy number?
+---@param x number
+---@param y number
 ---@return number, number
-function PixelCanvas:getMouseWorld(sx, sy)
-  local mx, my = love.mouse.getPosition()
+function PixelCanvas:getCoordsWorld(x, y, sx, sy)
+  local mx, my = x, y
 
   local scale = self:getScale(sx, sy)
   local screen_x, screen_y = love.graphics.getDimensions()

@@ -16,7 +16,7 @@ function GameTimeCallbackSystem:update(delta)
         :give("colour", 0, 0, 0, 0)
         :give("fade", 1, false)
         :give("transition", Ending)
-        :give("layer", 67)
+        :give("layer", 99)
 
     if data then
       Ending.kills = data.game_data.kills

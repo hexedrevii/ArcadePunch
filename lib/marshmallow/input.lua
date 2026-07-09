@@ -13,6 +13,8 @@
 ---@field private __pressedKeyboard table<love.KeyConstant, boolean|nil>
 ---@field private __pressedGamepad  table<love.GamepadButton, boolean|nil>
 ---@field private __pressedMouse    table<integer, boolean|nil>
+---@field private __virtualPressed table<string, boolean|nil>
+---@field private __virtualDown table<string, boolean>
 ---@field joystick love.Joystick?
 ---@field deadzone number?
 local input = {}
@@ -22,6 +24,7 @@ input.__index = input
 ---@field keyboard love.KeyConstant?
 ---@field gamepad love.GamepadButton?
 ---@field mouse   integer?
+---@field virtual string?
 local _mapping = {}
 
 function input.new()
@@ -33,7 +36,9 @@ function input.new()
 
     __pressedKeyboard  = {},
     __pressedGamepad   = {},
-    __pressedMouse     = {},
+    __pressedMouse    = {},
+    __virtualDown     = {},
+    __virtualPressed = {}
   }
 
   return setmetatable(i, input)
@@ -77,6 +82,16 @@ function input:gamepadaxis(joystick, axis, value)
 end
 -- @region Love Callbacks
 
+function input:virtualpressed(name)
+  self.__virtualPressed[name] = true
+  self.__virtualDown[name] = true
+end
+
+function input:virtualreleased(name)
+  self.__virtualPressed[name] = nil
+  self.__virtualDown[name] = false
+end
+
 function input:setDeadzone(deadzone)
   self.deadzone = deadzone
 end
@@ -85,11 +100,13 @@ end
 ---@param keyboard love.KeyConstant?
 ---@param gamepad love.GamepadButton?
 ---@param mouse   integer?
-function input:pushKeymap(name, keyboard, gamepad, mouse)
+---@param virtual string?
+function input:pushKeymap(name, keyboard, gamepad, mouse, virtual)
   self.__mappings[name] = {
     keyboard = keyboard,
     gamepad = gamepad,
-    mouse = mouse
+    mouse = mouse,
+    virtual = virtual
   }
 end
 
@@ -144,6 +161,13 @@ function input:isPressed(action)
     return true
   end
 
+  -- Virtual Check
+  local virt = map.virtual
+  if virt and self.__virtualPressed[virt] then
+    self.__virtualPressed[virt] = nil
+    return true
+  end
+
   local mouse = map.mouse
   if mouse and self.__pressedMouse[mouse] then
     self.__pressedMouse[mouse] = nil
@@ -169,6 +193,11 @@ function input:isDown(action)
     if self.joystick:isGamepadDown(button) then
       return true
     end
+  end
+
+  local virt = map.virtual
+  if virt and self.__virtualDown[virt] then
+    return true
   end
 
   local mouse = map.mouse

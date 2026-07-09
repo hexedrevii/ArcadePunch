@@ -4,12 +4,12 @@ local Menu      = require "src.worlds.Menu"
 local Saver     = require "src.Saver"
 
 local function loadKeys()
-  Resources.Input:pushKeymap("left", "a", "dpleft")
-  Resources.Input:pushKeymap("right", "d", "dpright")
-  Resources.Input:pushKeymap("up", "w", "dpup")
-  Resources.Input:pushKeymap("down", "s", "dpdown")
+  Resources.Input:pushKeymap("left", "a", "dpleft", nil, "vleft")
+  Resources.Input:pushKeymap("right", "d", "dpright", nil, "vright")
+  Resources.Input:pushKeymap("up", "w", "dpup", nil, "vup")
+  Resources.Input:pushKeymap("down", "s", "dpdown", nil, "vdown")
 
-  Resources.Input:pushKeymap("hit", "return", "a")
+  Resources.Input:pushKeymap("hit", "return", "a", nil, "vhit")
 end
 
 function love.load()
@@ -43,6 +43,14 @@ function love.load()
       :add("moleIdle", love.graphics.newImage("assets/mole-idle.png"))
       :add("moleLeave", love.graphics.newImage("assets/mole-leave.png"))
 
+  -- Mobile button stuff
+  Resources.Manager
+      :add("up", love.graphics.newImage("assets/up.png"))
+      :add("left", love.graphics.newImage("assets/left.png"))
+      :add("right", love.graphics.newImage("assets/right.png"))
+      :add("down", love.graphics.newImage("assets/down.png"))
+      :add("action", love.graphics.newImage("assets/action.png"))
+
   Resources.Manager
       :add("hit", love.audio.newSource("assets/audio/hit.wav", "static"))
       :add("power", love.audio.newSource("assets/audio/powerUp.wav", "static"))
@@ -53,6 +61,13 @@ function love.load()
 end
 
 function love.update(delta)
+  if not Resources.showTouch then
+    local touches = love.touch.getTouches()
+    if not next(touches) == nil then
+      Resources.showTouch = true
+    end
+  end
+
   Resources.Worlds:update(delta)
 end
 
