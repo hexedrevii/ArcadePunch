@@ -21,6 +21,10 @@ function love.load()
     Resources.saveData = data
   end
 
+  if Resources.saveData.options.fullscreen then
+    love.window.setFullscreen(true, "desktop")
+  end
+
   loadKeys()
 
   Resources.Manager:add("fontNormal", love.graphics.newFont("assets/fonts/Pixeled.ttf", 10))

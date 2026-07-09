@@ -22,7 +22,8 @@ function Menu:init()
 
     Systems.ButtonManagerSystem,
     Systems.UICallbacks.RetryPressedSystem,
-    Systems.UICallbacks.QuitPressedSystem
+    Systems.UICallbacks.QuitPressedSystem,
+    Systems.UICallbacks.OptionsPressedSystem
   )
 
   if self.fromTransition then

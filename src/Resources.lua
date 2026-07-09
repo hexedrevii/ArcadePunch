@@ -18,6 +18,12 @@ local Resources       = {
   startY = 3,
 
   saveData = {
+    options = {
+      fullscreen = false,
+      audio = true,
+      shake = true
+    },
+
     highScore = 0,
     tickets = 10,
     timeout = 40.0,
