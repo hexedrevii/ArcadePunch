@@ -11,7 +11,7 @@ function ShakePressedSystem:update()
 
     entity.text.text = "Toggle Screen Shake" .. (Resources.saveData.options.shake and " (on)" or " (off)")
 
-    entity:remove("screenshake")
+    entity:remove("pressed")
   end
 end
 
