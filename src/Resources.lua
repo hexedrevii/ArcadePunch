@@ -36,7 +36,7 @@ local Resources       = {
 
     damage = 1,
     highScore = 0,
-    tickets = 99999,
+    tickets = 0,
     timeout = 40.0,
     -- timeout = 1.0,
   },
