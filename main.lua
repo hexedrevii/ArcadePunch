@@ -10,6 +10,8 @@ local function loadKeys()
   Resources.Input:pushKeymap("down", "s", "dpdown", nil, "vdown")
 
   Resources.Input:pushKeymap("hit", "return", "a", nil, "vhit")
+
+  Resources.Input:pushKeymap("pause", "escape", "start", nil, "vpause")
 end
 
 function love.load()
@@ -50,12 +52,15 @@ function love.load()
       :add("right", love.graphics.newImage("assets/right.png"))
       :add("down", love.graphics.newImage("assets/down.png"))
       :add("action", love.graphics.newImage("assets/action.png"))
+      :add("pause", love.graphics.newImage("assets/pause.png"))
 
   Resources.Manager
       :add("hit", love.audio.newSource("assets/audio/hit.wav", "static"))
       :add("power", love.audio.newSource("assets/audio/powerUp.wav", "static"))
       :add("death", love.audio.newSource("assets/audio/enemy-death.wav", "static"))
       :add("finish", love.audio.newSource("assets/audio/end-whistle.mp3", "static"))
+      :add("buy", love.audio.newSource("assets/audio/buy.wav", "static"))
+      :add("reject", love.audio.newSource("assets/audio/rejected.wav", "static"))
 
   Resources.Worlds:set(Menu)
 end

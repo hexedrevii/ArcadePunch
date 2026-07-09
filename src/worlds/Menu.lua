@@ -24,6 +24,7 @@ function Menu:init()
     Systems.UICallbacks.RetryPressedSystem,
     Systems.UICallbacks.QuitPressedSystem,
     Systems.UICallbacks.OptionsPressedSystem,
+    Systems.UICallbacks.ShopPressedSystem,
 
     Systems.VirtualButtonSystem
   )

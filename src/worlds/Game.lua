@@ -21,6 +21,7 @@ function Game:init()
 
     Systems.Player.MovementSystem,
     Systems.Player.PunchSystem,
+    Systems.Player.PauseSystem,
 
     Systems.TextSystem,
     Systems.TextUpdate.ScoreTextSystem,
@@ -42,7 +43,10 @@ function Game:init()
     Systems.TransitionSystem,
 
     Systems.ScreenShakeSystem,
-    Systems.VirtualButtonSystem
+    Systems.VirtualButtonSystem,
+
+    Systems.ButtonManagerSystem,
+    Systems.UICallbacks.MainMenuPressedSystem
   )
 
   if self.fromTransition then
@@ -96,6 +100,14 @@ function Game:init()
         :give("colour", 1, 1, 1, 0.4)
         :give("sprite", Resources.Manager:get("action"))
         :give("layer", 97)
+
+    Entity.new(self.world)
+        :give("position", 5, 5)
+        :give("virtual_button", "vpause")
+        :give("rectangle", 32, 32)
+        :give("colour", 1, 1, 1, 0.4)
+        :give("sprite", Resources.Manager:get("pause"))
+        :give("layer", 97)
   end
 
   -- Background (No longer hardcoded (what the fuck was i thinking))
@@ -108,6 +120,10 @@ function Game:init()
   Entity.new(self.world)
       :give("timer", 2, false)
       :give("wave_manager")
+
+  -- Pause handler
+  Entity.new(self.world)
+      :give("paused")
 
   if Resources.saveData.options.shake then
     -- Camera (only for shake)
