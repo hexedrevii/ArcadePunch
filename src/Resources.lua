@@ -20,8 +20,13 @@ local Resources       = {
   startX = 6,
   startY = 3,
 
+  currentVersion = 1,
+
   saveData = {
     version = 1,
+
+    upgrades = {
+    },
 
     options = {
       fullscreen = false,
@@ -29,8 +34,9 @@ local Resources       = {
       shake = true
     },
 
+    damage = 1,
     highScore = 0,
-    tickets = 10,
+    tickets = 99999,
     timeout = 40.0,
     -- timeout = 1.0,
   },

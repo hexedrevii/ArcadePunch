@@ -43,3 +43,10 @@ end)
 Component.new("transition", function(c, what)
   c.what = what
 end)
+
+Component.new("paused", function(c)
+  c.running = true
+end)
+
+-- Tag to see which entity to kill when unpausing
+Component.new("pause")

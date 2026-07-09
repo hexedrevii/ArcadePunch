@@ -16,7 +16,7 @@ function PunchSystem:update(delta)
       -- Cooldown + Hammer lifts up
       entity:give("timer", 0.1, true)
 
-      entity:give("damage", 1, position.x, position.y)
+      entity:give("damage", Resources.saveData.damage, position.x, position.y)
 
       ---@type love.ParticleSystem
       local dust = Resources.Manager:get("dustParticles")
