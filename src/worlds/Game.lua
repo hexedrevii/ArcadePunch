@@ -66,10 +66,12 @@ function Game:init()
       :give("timer", 2, false)
       :give("wave_manager")
 
-  -- Camera (only for shake)
-  Entity.new(self.world)
-      :give("camera")
-      :give("layer", 99)
+  if Resources.saveData.options.shake then
+    -- Camera (only for shake)
+    Entity.new(self.world)
+        :give("camera")
+        :give("layer", 99)
+  end
 
   -- Data holder
   Entity.new(self.world)

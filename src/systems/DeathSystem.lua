@@ -1,4 +1,5 @@
 local System = require "lib.Concord.concord.system"
+local Resources = require "src.Resources"
 
 local DeathSystem = System.new({ pool = { "dead" }, data = { "game_data" } })
 
@@ -12,9 +13,14 @@ function DeathSystem:update(delta)
       end
 
       data.game_data.kills = data.game_data.kills + 1
+
+      if data.game_data.kills ~= 0 and data.game_data.kills % 10 == 0 then
+        Resources.playAudio("power")
+      end
     end
 
     entity:destroy()
+    Resources.playAudio("death")
   end
 end
 

@@ -22,6 +22,8 @@ function GameTimeSystem:update(delta)
 
       entity:give("timer", 0.75, false)
 
+      Resources.playAudio("finish")
+
       for _, system in ipairs(systemsToDisable) do
         world:getSystem(system):setEnabled(false)
       end

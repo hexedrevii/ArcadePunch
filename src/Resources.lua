@@ -2,6 +2,7 @@ local ResourceManager = require "src.ResourceManager"
 local Input           = require "lib.marshmallow.Input"
 local Controller      = require "src.worlds.Controller"
 local PixelCanvas     = require "lib.marshmallow.PixelCanvas"
+local mathx           = require "lib.marshmallow.mathx"
 
 local Resources       = {
   Renderer = PixelCanvas.new(320, 180),
@@ -35,5 +36,24 @@ local Resources       = {
 
   Worlds = Controller.new()
 }
+
+---@param name string The resource name of the audio
+---@param randomPitch boolean?
+function Resources.playAudio(name, randomPitch)
+  if not Resources.saveData.options.audio then return end
+
+  ---@type love.Source
+  local audio = Resources.Manager:get(name)
+
+  if audio:isPlaying() then
+    audio:stop()
+  end
+
+  if randomPitch then
+    audio:setPitch(mathx.randf(1, 1.5))
+  end
+
+  audio:play()
+end
 
 return Resources
