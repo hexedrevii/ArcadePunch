@@ -33,7 +33,7 @@ function love.load()
 
   loadKeys()
 
-  Resources.Manager:add("fontNormal", love.graphics.newFont("assets/fonts/Pixeled.ttf", 10))
+  Resources.Manager:add("fontNormal", love.graphics.newFont("assets/fonts/04B.TTF", 16))
 
   Resources.Manager
       :add("hammerUp", love.graphics.newImage("assets/hammer.png"))
@@ -66,7 +66,7 @@ function love.load()
       :add("buy", love.audio.newSource("assets/audio/buy.wav", "static"))
       :add("reject", love.audio.newSource("assets/audio/rejected.wav", "static"))
 
-  Resources.Worlds:set(Menu)
+  Resources.Worlds:set(Game)
 end
 
 function love.update(delta)
