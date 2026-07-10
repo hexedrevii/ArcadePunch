@@ -2,3 +2,5 @@
 .idea
 **/*.love
 **/.DS_Store
+**/ArcadePunch
+**/*.zip
