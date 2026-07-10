@@ -1,4 +1,4 @@
-local System = require "lib.Concord.concord.System"
+local System = require "lib.Concord.concord.system"
 
 local OutlineSystem = System.new({ pool = { "outline", "position", "watch" } })
 
