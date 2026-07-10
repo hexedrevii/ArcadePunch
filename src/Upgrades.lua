@@ -28,6 +28,23 @@ local Upgrades = {
       data.damage = 2
     end
   },
+  {
+    name = "More Tickets",
+    id = "tickets",
+    type = "leveled",
+    max = 2,
+    price = 50,
+    data = {
+      function(self, data)
+        data.ticketsPer = 6
+        self.price = 70
+      end,
+      function(self, data)
+        data.ticketsPer = 8
+        self.price = 100
+      end
+    }
+  },
 }
 
 return Upgrades

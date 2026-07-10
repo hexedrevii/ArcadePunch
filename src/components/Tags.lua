@@ -3,6 +3,7 @@ local Component = require "lib.Concord.concord.component"
 Component.new("player")
 
 Component.new("health_display")
+Component.new("outline")
 
 Component.new("timer_complete")
 

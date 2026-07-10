@@ -32,6 +32,7 @@ Component.new("quit")
 Component.new("fullscreen")
 Component.new("audio")
 Component.new("screenshake")
+Component.new("showline")
 
 -- Shop tags
 Component.new("ticket")
