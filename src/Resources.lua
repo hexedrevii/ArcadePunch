@@ -14,25 +14,29 @@ local Resources       = {
 
   tileSize = 16,
 
+  version = "1.1",
+
   rows = 3,
   cols = 6,
 
   startX = 6,
   startY = 3,
 
-  currentVersion = 1,
-
   saveData = {
-    version = 1,
+    version = 2,
 
     upgrades = {
     },
 
     options = {
-      fullscreen = false,
+      fullscreen = true,
       audio = true,
-      shake = true
+      shake = true,
+
+      outline = true,
     },
+
+    ticketsPer = 3,
 
     damage = 1,
     highScore = 0,

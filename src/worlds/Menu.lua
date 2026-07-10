@@ -96,6 +96,12 @@ function Menu:init()
       :give("layer", 2)
 
   Entity.new(self.world)
+      :give("position", 2, 166)
+      :give("text", "v" .. Resources.version, font)
+      :give("colour", 1, 1, 1, 1)
+      :give("layer", 2)
+
+  Entity.new(self.world)
       :give("button_manager", "vertical", 4)
 
   Entity.new(self.world)

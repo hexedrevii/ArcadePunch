@@ -9,7 +9,7 @@ function PlaceTextCallbackSystem:update(delta)
   if not data then return end
 
   for _, entity in ipairs(self.pool) do
-    local ticketsEarned = math.floor(data.game_data.kills / 10) * 3
+    local ticketsEarned = math.floor(data.game_data.kills / 10) * Resources.saveData.ticketsPer
 
     local world = self:getWorld()
     local sr, sg, sb, sa = love.math.colorFromBytes(217, 87, 99)

@@ -20,6 +20,13 @@ function love.load()
 
   local data = Saver.load()
   if data then
+    if data.version == 1 then
+      data.ticketsPer = 3
+      data.options.outline = true
+
+      data.version = 2
+    end
+
     Resources.saveData = data
   end
 
@@ -71,7 +78,7 @@ function love.load()
       :add("buy", love.audio.newSource("assets/audio/buy.wav", "static"))
       :add("reject", love.audio.newSource("assets/audio/rejected.wav", "static"))
 
-  Resources.Worlds:set(Game)
+  Resources.Worlds:set(Menu)
 end
 
 function love.update(delta)

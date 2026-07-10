@@ -49,7 +49,8 @@ function Game:init()
     Systems.UICallbacks.MainMenuPressedSystem,
 
     Systems.WatchSystem,
-    Systems.HealthDisplaySystem
+    Systems.HealthDisplaySystem,
+    Systems.OutlineSystem
   )
 
   if self.fromTransition then
@@ -162,6 +163,19 @@ function Game:init()
       :give("fillmode", "fill")
       :give("layer", 5)
       :give("watch", player)
+
+  -- Rectangle outline for player
+  if Resources.saveData.options.outline == true then
+    Entity.new(self.world)
+        :give("position", 1, 1)
+        :give("rectangle", Resources.tileSize, Resources.tileSize)
+        :give("grid", Resources.startX, Resources.startY)
+        :give("colour", 1, 0.929, 0.42, 0.5)
+        :give("fillmode", "line")
+        :give("layer", 6)
+        :give("watch", player)
+        :give("outline")
+  end
 
   -- Panels
   local overlayr, overlayg, overlayb, overlaya = love.math.colorFromBytes(115, 76, 67)

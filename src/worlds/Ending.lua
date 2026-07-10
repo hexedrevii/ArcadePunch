@@ -16,7 +16,7 @@ function Ending:init()
     Resources.saveData.highScore = self.score
   end
 
-  local ticketsEarned = math.floor(self.kills / 10) * 3
+  local ticketsEarned = math.floor(self.kills / 10) * Resources.saveData.ticketsPer
   Resources.saveData.tickets = Resources.saveData.tickets + ticketsEarned
 
   Saver.save(Resources.saveData)

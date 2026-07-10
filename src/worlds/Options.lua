@@ -26,6 +26,7 @@ function Options:init()
     Systems.UICallbacks.FullscreenPressedSystem,
     Systems.UICallbacks.AudioPressedSystem,
     Systems.UICallbacks.ShakePressedSystem,
+    Systems.UICallbacks.OutlinePressedSystem,
 
     Systems.VirtualButtonSystem
   )
@@ -107,7 +108,7 @@ function Options:init()
 
   -- UI
   Entity.new(self.world)
-      :give("button_manager", "vertical", 4)
+      :give("button_manager", "vertical", 5)
 
   local opts = Resources.saveData.options
 
@@ -138,11 +139,20 @@ function Options:init()
       :give("layer", 2)
       :give("screenshake")
 
+  base = base + 20
+  Entity.new(self.world)
+      :give("position", 5, base)
+      :give("text", "Toggle Outline" .. (opts.outline and " (on)" or " (off)"), font)
+      :give("colour", 1, 1, 1, 1)
+      :give("button", 4)
+      :give("layer", 2)
+      :give("showline")
+
   Entity.new(self.world)
       :give("position", 0, 150)
       :give("text", "Return", font)
       :give("colour", 1, 1, 1, 1)
-      :give("button", 4)
+      :give("button", 5)
       :give("layer", 2)
       :give("centered")
       :give("mainmenu")
