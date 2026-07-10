@@ -1,4 +1,5 @@
 local System = require "lib.Concord.concord.system"
+local Resources = require "src.Resources"
 
 local RectangleSystem = System.new({ pool = { "rectangle", "colour", "fillmode", "position" } })
 
@@ -9,11 +10,23 @@ function RectangleSystem:draw(renderQueue)
       draw = function()
         local colour = entity.colour
 
+        local x, y = entity.position.x, entity.position.y
+
+        if entity:has("grid") then
+          x = (entity.grid.x + entity.position.x) * Resources.tileSize
+          y = (entity.grid.y + entity.position.y) * Resources.tileSize
+        end
+
+        if entity:has("offset") then
+          x = x + entity.offset.x
+          y = y + entity.offset.y
+        end
+
         love.graphics.setColor(colour.r, colour.g, colour.b, colour.a)
 
         love.graphics.rectangle(
           entity.fillmode.mode,
-          entity.position.x, entity.position.y,
+          x, y,
           entity.rectangle.w, entity.rectangle.h
         )
 

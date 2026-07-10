@@ -15,12 +15,12 @@ function WaveManagerCallbackSystem:update(delta)
             love.math.random(1, Resources.cols),
             love.math.random(1, Resources.rows)
 
-        Assemblers.mole(self:getWorld(), x, y)
+        Assemblers.spawnWeighted(self:getWorld(), x, y)
       end
     elseif pattern.type == "coordinated" then
       ---@diagnostic disable-next-line: param-type-mismatch
       for _, enemy in ipairs(pattern.enemies) do
-        Assemblers.mole(self:getWorld(), enemy.x, enemy.y)
+        Assemblers.spawnWeighted(self:getWorld(), enemy.x, enemy.y)
       end
     end
 

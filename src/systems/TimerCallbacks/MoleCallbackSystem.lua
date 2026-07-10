@@ -5,7 +5,7 @@ local MoleCallbackSystem = System.new({ pool = { "mole", "timer_complete" } })
 
 function MoleCallbackSystem:update(delta)
   for _, entity in ipairs(self.pool) do
-    entity:give("spritesheet", Resources.Manager:get("moleLeave"), 16, 16, 1, true, "mole_leave")
+    entity:give("spritesheet", entity.mole.imageLeave, 16, 16, 1, true, "mole_leave")
 
     entity:remove("timer_complete")
   end
