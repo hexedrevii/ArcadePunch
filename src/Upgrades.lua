@@ -23,7 +23,7 @@ local Upgrades = {
     name = "Berserk",
     id = "berserk",
     type = "single",
-    price = 1000,
+    price = 500,
     data = function(self, data)
       data.damage = 2
     end
