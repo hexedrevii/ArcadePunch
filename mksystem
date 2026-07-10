@@ -36,7 +36,7 @@ if file_exists(full) then
 end
 
 local raw = [[
-local System = require "lib.Concord.concord.System"
+local System = require "lib.Concord.concord.system"
 
 local %s = System.new({ pool = {} })
 
