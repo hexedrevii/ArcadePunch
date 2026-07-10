@@ -8,6 +8,7 @@ end)
 
 Component.new("health", function(c, hp)
   c.hp = hp
+  c.maxHp = hp
 end)
 
 Component.new("drop", function(c, score)
@@ -50,3 +51,12 @@ end)
 
 -- Tag to see which entity to kill when unpausing
 Component.new("pause")
+
+Component.new("mole", function(c, imageIdle, imageLeave)
+  c.imageIdle = imageIdle
+  c.imageLeave = imageLeave
+end)
+
+Component.new("watch", function(c, target)
+  c.target = target
+end)

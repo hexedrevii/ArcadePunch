@@ -1,0 +1,63 @@
+#!/usr/bin/env lua
+
+local help = [[
+MkSystem - Quickly make a system file!
+
+Options:
+  1: System Name - The name of the SystemClass [EG: MovementSystem]
+  2: Path - The filepath where the lua file will be created [EG: ./systems (will create ./systems/SystemName.lua)]
+]]
+
+if not arg[1] or not arg[2] then
+  print(help)
+  os.exit(1)
+end
+
+local name = arg[1]
+local path = arg[2]
+
+local function file_exists(fname)
+  local f = io.open(fname, "r")
+  if f then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
+
+path = path:gsub("[/\\]$", "")
+
+local full = path .. "/" .. name .. ".lua"
+
+if file_exists(full) then
+  print("The specified file already exists: " .. full)
+  os.exit(1)
+end
+
+local raw = [[
+local System = require "lib.Concord.concord.System"
+
+local %s = System.new({ pool = {} })
+
+function %s:update(delta)
+  for _, entity in ipairs(self.pool) do
+  end
+end
+
+function %s:draw() end
+
+return %s
+]]
+
+local final = string.format(raw, name, name, name, name)
+
+local file = io.open(full, "w")
+if file then
+  file:write(final)
+  file:close()
+
+  print("System created at " .. full)
+else
+  print("Could not create system... Check the path or the permissions of it.")
+end

@@ -46,7 +46,10 @@ function Game:init()
     Systems.VirtualButtonSystem,
 
     Systems.ButtonManagerSystem,
-    Systems.UICallbacks.MainMenuPressedSystem
+    Systems.UICallbacks.MainMenuPressedSystem,
+
+    Systems.WatchSystem,
+    Systems.HealthDisplaySystem
   )
 
   if self.fromTransition then
@@ -138,7 +141,7 @@ function Game:init()
       :give("game_time", Resources.saveData.timeout)
 
   -- Player
-  Entity.new(self.world)
+  local player = Entity.new(self.world)
       :give("timed_movement", 0.15)
       :give("position", 1, 1)
       :give("grid", Resources.startX, Resources.startY)
@@ -147,6 +150,18 @@ function Game:init()
       :give("sprite", Resources.Manager:get("hammerUp"))
       :give("layer", 3)
       :give("player")
+
+  -- The health display that will follow the player.
+  Entity.new(self.world)
+      :give("position", 1, 1)
+      :give("health_display")
+      :give("grid", Resources.startX, Resources.startY)
+      :give("offset", 4, -4)
+      :give("rectangle", 11, 4)
+      :give("colour", 1, 0.408, 0.365, 1)
+      :give("fillmode", "fill")
+      :give("layer", 5)
+      :give("watch", player)
 
   -- Panels
   local overlayr, overlayg, overlayb, overlaya = love.math.colorFromBytes(115, 76, 67)

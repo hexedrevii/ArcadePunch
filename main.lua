@@ -45,9 +45,14 @@ function love.load()
       :add("skull", love.graphics.newImage("assets/skull.png"))
       :add("clock", love.graphics.newImage("assets/clock.png"))
       :add("dust", love.graphics.newImage("assets/dust.png"))
+
       :add("moleEnter", love.graphics.newImage("assets/mole-enter.png"))
       :add("moleIdle", love.graphics.newImage("assets/mole-idle.png"))
       :add("moleLeave", love.graphics.newImage("assets/mole-leave.png"))
+
+      :add("moleEnterRed", love.graphics.newImage("assets/mole-enter-red.png"))
+      :add("moleIdleRed", love.graphics.newImage("assets/mole-idle-red.png"))
+      :add("moleLeaveRed", love.graphics.newImage("assets/mole-leave-red.png"))
 
   -- Mobile button stuff
   Resources.Manager
